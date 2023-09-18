@@ -7,22 +7,22 @@ button.addEventListener("click", () => {
 		let body = new FormData();
 		body.append("file", file, "file")
 
-		const totalBytes = file.size;
-		let bytesUploaded = 0;
-		console.log("total bytes:", totalBytes)
+		// const totalBytes = file.size;
+		// let bytesUploaded = 0;
+		// console.log("total bytes:", totalBytes)
 
-		const progressTrackingStream = new TransformStream({
-			transform(chunk, controller) {
-				controller.enqueue(chunk);
-				bytesUploaded += chunk.byteLength;
-				console.log("upload progress:", Math.floor((bytesUploaded / totalBytes) * 100));
-				console.log("uploaded bytes:", bytesUploaded)
-				// uploadProgress.value = bytesUploaded / totalBytes;
-			},
-			flush(controller) {
-				console.log("completed stream");
-			},
-		});
+		// const progressTrackingStream = new TransformStream({
+		// 	transform(chunk, controller) {
+		// 		controller.enqueue(chunk);
+		// 		bytesUploaded += chunk.byteLength;
+		// 		console.log("upload progress:", Math.floor((bytesUploaded / totalBytes) * 100));
+		// 		console.log("uploaded bytes:", bytesUploaded)
+		// 		// uploadProgress.value = bytesUploaded / totalBytes;
+		// 	},
+		// 	flush(controller) {
+		// 		console.log("completed stream");
+		// 	},
+		// });
 
 		// let file = input.files[0]
 		// let fileSize = file.size // e.g. 500000
@@ -40,8 +40,8 @@ button.addEventListener("click", () => {
 
 		fetch("http://localhost:8080/api/upload", {
 			method: "POST",
-			body: file.stream().pipeThrough(progressTrackingStream),
-			duplex: "half"
+			body//file.stream().pipeThrough(progressTrackingStream),
+			// duplex: "half"
 		}).catch((err) => console.log({err}))
 	}
 })
